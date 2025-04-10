@@ -1,1 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vertex-inference-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: inference
+  template:
+    metadata:
+      labels:
+        app: inference
+    spec:
+      containers:
+        - name: inference-handler
+          image: gcr.io/your-gcp-project/inference-image:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: ENDPOINT_ID
+              value: "your-endpoint-id"
 
